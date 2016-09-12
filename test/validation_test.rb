@@ -28,7 +28,14 @@ describe Validation::Validator do
           v.wont_be :valid?
         end
       end
-
+    end
+    describe 'matches' do
+      it 'fails if the field does not match a given format' do 
+        v.add_rule('fieldname', "match, \\Aabc\\z", 'fieldname must match "abc"')
+        v.validate({'fieldname' => 'abc'}).must_equal true
+        v.validate({'fieldname' => 'bcs'}).must_equal false
+        v.errors['fieldname'].must_include 'fieldname must match "abc"'
+      end
     end
   end
     
