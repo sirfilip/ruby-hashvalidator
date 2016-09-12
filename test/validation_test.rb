@@ -21,15 +21,9 @@ describe Validation::Validator do
 
   describe 'validation rules' do 
     describe 'required' do 
-      it 'fails if the field is missing' do 
-        v.add_rule('fieldname', 'required', '')
-        v.validate({})
-        v.wont_be :valid?
-      end
-
       it 'fails if the field is empty' do 
         v.add_rule('fieldname', 'required', '')
-        ['', nil, [], {}, 1].each do |value| 
+        ['', nil, [], {}].each do |value| 
           v.validate({'fieldname' => value})
           v.wont_be :valid?
         end

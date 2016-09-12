@@ -21,7 +21,7 @@ module Validation
       reset_errors
       @rules.each do |field, rules|
         rules.each do |rule|
-          method, *args = rule['rule'].split(',')
+          method, *args = rule['rule'].split(',').map(&:strip)
           args = [params, field] + args
           unless send("validates_#{method}", *args)
             @errors[field] ||= []
